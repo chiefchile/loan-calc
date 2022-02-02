@@ -1,14 +1,16 @@
 package com.hoegh.loancalculator.domain;
 
+import static java.math.BigDecimal.ONE;
+import static java.math.RoundingMode.HALF_EVEN;
+
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeLoan {
 	private BigDecimal loanAmt;
 	private int numYears;
 	private BigDecimal yearlyInterest;
-//	private BigDecimal monthlyInterest;
 
 	public HomeLoan(BigDecimal loanAmt, int numYears, BigDecimal yearlyInterest) {
 		super();
@@ -33,20 +35,29 @@ public class HomeLoan {
 		return yearlyInterest;
 	}
 
+	// TODO: Get formula for compound interest
 	public BigDecimal getMonthlyInterest() {
 		return yearlyInterest.divide(new BigDecimal("12"));
 	}
 
 	public BigDecimal calcMonthlyAmortization() {
 		BigDecimal numerator = loanAmt.multiply(getMonthlyInterest())
-				.multiply((BigDecimal.ONE.add(getMonthlyInterest()).pow(getNumMonths())));
-		BigDecimal denominator = (BigDecimal.ONE.add(getMonthlyInterest())).pow(getNumMonths())
-				.subtract(BigDecimal.ONE);
-		return numerator.divide(denominator, RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN);
+				.multiply((ONE.add(getMonthlyInterest()).pow(getNumMonths())));
+		BigDecimal denominator = (ONE.add(getMonthlyInterest())).pow(getNumMonths()).subtract(ONE);
+		return numerator.divide(denominator, HALF_EVEN).setScale(2, HALF_EVEN);
 	}
 
-	public List<MonthlyAmortization> getAllMonthlyAmortizations() {
-		return null;
+	public List<AmortizationSchedEntry> generateAmortizationSched() {
+		List<AmortizationSchedEntry> amortizationSched = new ArrayList<AmortizationSchedEntry>();
+		BigDecimal beginningBal = loanAmt;
+		for (int i = 0; i < getNumMonths(); i++) {
+			AmortizationSchedEntry entry = new AmortizationSchedEntry(calcMonthlyAmortization(), beginningBal,
+					getMonthlyInterest());
+			beginningBal = entry.getEndingBal();
+			amortizationSched.add(entry);
+		}
+
+		return amortizationSched;
 	}
 
 }
