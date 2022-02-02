@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoanController {
 
 	@GetMapping("/")
-	public String showUserList(Model model) {
-//        model.addAttribute("users", userRepository.findAl);
+	public String toIndex(Model model) {
 		return "index";
 	}
 
