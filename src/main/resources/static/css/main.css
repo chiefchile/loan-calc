@@ -1,0 +1,16 @@
+#div-monthly-amortization {
+	margin-top: 42px;
+	margin-bottom: 42px;
+}
+
+#monthly-amortization {
+	font-weight: bold;
+}
+
+.heading {
+	margin-bottom: 42px;
+}
+
+.errors {
+	color: red;
+}
