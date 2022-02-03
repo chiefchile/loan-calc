@@ -20,3 +20,14 @@ cd target
 java -jar loan-calculator-1.0.0.jar
 ```
 3. Open localhost:8080 in your browser
+
+
+### Running the app on a Docker container
+Prerequisites: Docker
+1. Build the app (see above)
+2. Execute the following commands on the app's root directory
+```
+docker build -t hoegh/loan-calc .
+docker run -p 8080:8080 hoegh/loan-calc
+```
+3. Open localhost:8080 in your browser
