@@ -1,36 +1,39 @@
 package com.hoegh.loancalculator.dto;
 
 import java.math.BigDecimal;
-
+import javax.validation.constraints.NotNull;
 import com.hoegh.loancalculator.domain.LoanType;
 
 public class LoanDto {
-	private LoanType loanType;
-	private BigDecimal loanAmt;
-	private int numYears = 1;
+    private LoanType loanType;
 
-	public LoanType getLoanType() {
-		return loanType;
-	}
+    @NotNull(message = "Input loan amount")
+    private BigDecimal loanAmt;
 
-	public void setLoanType(LoanType loanType) {
-		this.loanType = loanType;
-	}
+    private int numYears = 1;
 
-	public BigDecimal getLoanAmt() {
-		return loanAmt;
-	}
+    public LoanType getLoanType() {
+        return loanType;
+    }
 
-	public void setLoanAmt(BigDecimal loanAmt) {
-		this.loanAmt = loanAmt;
-	}
+    public void setLoanType(LoanType loanType) {
+        this.loanType = loanType;
+    }
 
-	public int getNumYears() {
-		return numYears;
-	}
+    public BigDecimal getLoanAmt() {
+        return loanAmt;
+    }
 
-	public void setNumYears(int numYears) {
-		this.numYears = numYears;
-	}
+    public void setLoanAmt(BigDecimal loanAmt) {
+        this.loanAmt = loanAmt;
+    }
+
+    public int getNumYears() {
+        return numYears;
+    }
+
+    public void setNumYears(int numYears) {
+        this.numYears = numYears;
+    }
 
 }

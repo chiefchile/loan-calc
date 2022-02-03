@@ -23,6 +23,10 @@
 	.heading {
 		margin-bottom: 42px;
 	}
+	
+	.errors {
+		color: red;
+	}
 }
 </style>
 </head>
@@ -33,13 +37,19 @@
 			<div class="form-group row">
 				<label for="loanAmt" class="col-sm-2 col-form-label">Loan Amount</label>
 				<div class="col-sm-3">
-					<input type="text" th:field="*{loanAmt}" class="form-control" id="loanAmt" required="required">
+					<input type="text" th:field="*{loanAmt}" class="form-control" id="loanAmt">
+				</div>
+				<div class="col-sm-2">
+					<div class="errors" th:if="${#fields.hasErrors('loanAmt')}" th:errors="*{loanAmt}"></div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="numYears" class="col-sm-2 col-form-label">Loan Term(years)</label>
 				<div class="col-sm-3">
 					<input type="text" th:field="*{numYears}" class="form-control" id="numYears">
+				</div>
+				<div class="col-sm-2">
+					<div class="errors" th:if="${#fields.hasErrors('numYears')}" th:errors="*{numYears}"></div>
 				</div>
 			</div>
 			<div class="form-group row">
