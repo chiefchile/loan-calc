@@ -1,10 +1,82 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Loan Calculator</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Mortgage Calculator</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+	integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+<style type="text/css">
+	#div-monthly-amortization {
+		margin-top: 42px;
+		margin-bottom: 42px;
+	}
+	
+	#monthly-amortization {
+		font-weight: bold;
+	}
+	
+	.heading {
+		margin-bottom: 42px;
+	}
+}
+</style>
 </head>
 <body>
-	<h1>Hello world</h1>
+	<div class="container">
+		<h3 class="heading">Mortgage Calculator</h3>
+		<form action="#" th:action="@{/calculate}" th:object="${loanDto}" method="post">
+			<div class="form-group row">
+				<label for="loanAmt" class="col-sm-2 col-form-label">Loan Amount</label>
+				<div class="col-sm-3">
+					<input type="text" th:field="*{loanAmt}" class="form-control" id="loanAmt" required="required">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="numYears" class="col-sm-2 col-form-label">Loan Term(years)</label>
+				<div class="col-sm-3">
+					<input type="text" th:field="*{numYears}" class="form-control" id="numYears">
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary">Calculate</button>
+				</div>
+			</div>
+		</form>
+		<div class="row" th:if="${monthlyAmortization}" id="div-monthly-amortization">
+			<div class="col-sm-2">Monthly Amortization</div>
+			<div class="col-sm-2" th:text="${monthlyAmortization}" id="monthly-amortization"></div>
+		</div>
+		<div class="table-responsive" th:if="${sched}">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Year</th>
+						<th>Month</th>
+						<th>Beginning Balance</th>
+						<th>Interest</th>
+						<th>Principal</th>
+						<th>Ending Balance</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="entry : ${sched}">
+						<td th:text="${entry.year}"></td>
+						<td th:text="${entry.month}"></td>
+						<td th:text="${entry.beginningBal}"></td>
+						<td th:text="${entry.interest}"></td>
+						<td th:text="${entry.principal}"></td>
+						<td th:text="${entry.endingBal}"></td>
+					</tr>
+			</table>
+		</div>
+
+	</div>
+
 </body>
 </html>
